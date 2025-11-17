@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Card from './ui/card.svelte';
+	import { Card } from './ui/card';
 	import Badge from './ui/badge.svelte';
 	import type { Split, User } from '$lib/server/db/schema';
 
