@@ -1,0 +1,45 @@
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+dist
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Capacitor
+android/
+ios/
+.capacitor
+
+# Drizzle
+drizzle/migrations/
+drizzle/.kit
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.swp
+*.swo
+*~
+
+# Test
+coverage/
+.nyc_output
