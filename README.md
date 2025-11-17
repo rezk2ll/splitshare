@@ -1,81 +1,115 @@
-# Splitify
+# SplitShare
 
-A mobile fitness app built with Capacitor + SvelteKit that allows users to create, share, and discover gym workout splits.
+A social fitness app that lets users create custom gym splits, share them with the community, and discover popular workout routines. Built with SvelteKit, Capacitor, and modern web technologies.
 
-## Tech Stack
+## ⚡ Quick Start (Local Development)
 
-- **Frontend**: SvelteKit with TypeScript (Svelte 5 with runes)
-- **Mobile**: Capacitor (iOS + Android)
-- **Backend**: Supabase (PostgreSQL database, storage)
-- **ORM**: Drizzle ORM
-- **Authentication**: better-auth
-- **Forms**: Superforms + Zod
-- **UI**: shadcn-svelte + Tailwind CSS
-- **Testing**: Vitest + Playwright
-
-## Prerequisites
-
-- Node.js 20.x or higher
-- npm or pnpm
-- PostgreSQL database (via Supabase or self-hosted)
-- For mobile development:
-  - Android Studio (for Android builds)
-  - Xcode (for iOS builds, macOS only)
-
-## Getting Started
-
-### 1. Clone the repository
+Get up and running in under 5 minutes:
 
 ```bash
+# 1. Clone and install
 git clone git@github.com:rezk2ll/splitshare.git
 cd splitshare
-```
-
-### 2. Install dependencies
-
-```bash
 npm install
+
+# 2. Start infrastructure (PostgreSQL, Redis, Mailpit)
+docker-compose up -d
+
+# 3. Configure environment
+cp .env.local.example .env
+
+# 4. Set up database
+npm run db:push
+
+# 5. Start dev server
+npm run dev
 ```
 
-### 3. Set up environment variables
+🎉 **Done!** Open http://localhost:5173
 
-Copy the `.env.example` file to `.env` and fill in your credentials:
+📖 **Detailed Guide**: See [DEVELOPMENT.md](./DEVELOPMENT.md) for complete local development instructions.
+
+## 🚀 Tech Stack
+
+### Frontend
+- **SvelteKit 2** - Full-stack framework
+- **Svelte 5** - UI framework with runes
+- **Tailwind CSS v4** - Styling
+- **TypeScript** - Type safety
+
+### Backend
+- **Better Auth** - Authentication
+- **Drizzle ORM** - Database ORM
+- **PostgreSQL** - Database
+- **Redis** - Rate limiting
+
+### Mobile
+- **Capacitor 7** - iOS + Android apps
+- **Native plugins** - Share, Haptics, StatusBar
+
+### Infrastructure (Phase 1)
+- **Resend** - Email service
+- **Upstash Redis** - Rate limiting (production)
+- **Sentry** - Error monitoring
+- **Supabase** - Storage (production)
+
+## 📋 Prerequisites
+
+### For Local Development
+- **Node.js 18+** and npm
+- **Docker** and Docker Compose
+- **Git**
+
+### For Mobile Development
+- Android Studio (for Android builds)
+- Xcode (for iOS builds, macOS only)
+
+## 🏗️ Development Setup
+
+### Local Development Services (Docker)
+
+The project includes a `docker-compose.yml` with all required services:
+
+- **PostgreSQL 16** - Database (port 5432)
+- **Redis 7** - Rate limiting (port 6379)
+- **Mailpit** - Email testing (ports 1025, 8025)
+- **pgAdmin** - Database GUI (port 5050, optional)
 
 ```bash
-cp .env.example .env
+# Start all services
+docker-compose up -d
+
+# View running services
+docker-compose ps
+
+# View logs
+docker-compose logs -f
+
+# Stop all services
+docker-compose down
 ```
 
-Required environment variables:
+### Environment Configuration
 
-- `DATABASE_URL`: PostgreSQL connection string
-- `SUPABASE_URL`: Your Supabase project URL
-- `SUPABASE_ANON_KEY`: Your Supabase anonymous key
-- `BETTER_AUTH_SECRET`: Secret key for better-auth (min 32 characters)
-- `BETTER_AUTH_URL`: Your app URL (for development: http://localhost:5173)
-- `PUBLIC_APP_URL`: Your app URL (for development: http://localhost:5173)
-
-### 4. Set up the database
-
-Generate the database schema and run migrations:
+For local development, use `.env.local.example`:
 
 ```bash
-# Generate migration files
-npm run db:generate
+cp .env.local.example .env
+```
 
+The default values work out of the box - no external services needed!
+
+### Database Setup
+
+```bash
 # Push schema to database
 npm run db:push
 
-# Or open Drizzle Studio to manage your database
+# Open Drizzle Studio (database GUI)
 npm run db:studio
-```
 
-### 5. Start the development server
-
-```bash
-npm run dev
-
-# Or open in browser automatically
-npm run dev -- --open
+# Generate new migration
+npm run db:generate
 ```
 
 ## Development Scripts

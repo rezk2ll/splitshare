@@ -40,8 +40,16 @@ export const createExerciseSchema = z.object({
 	equipmentType: z.enum(EQUIPMENT_TYPES, {
 		errorMap: () => ({ message: 'Invalid equipment type' })
 	}),
+	// Image URL (external URL, e.g., from Unsplash, Pexels, or Supabase Storage)
 	imageUrl: z.string().url('Invalid image URL').optional(),
-	videoUrl: z.string().url('Invalid video URL').optional()
+	// Video URL (YouTube URL, e.g., https://www.youtube.com/watch?v=VIDEO_ID)
+	videoUrl: z
+		.string()
+		.url('Invalid video URL')
+		.refine((url) => url.includes('youtube.com') || url.includes('youtu.be'), {
+			message: 'Video must be a YouTube URL'
+		})
+		.optional()
 });
 
 export const updateExerciseSchema = createExerciseSchema.partial();
