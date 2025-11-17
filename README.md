@@ -32,22 +32,26 @@ npm run dev
 ## 🚀 Tech Stack
 
 ### Frontend
+
 - **SvelteKit 2** - Full-stack framework
 - **Svelte 5** - UI framework with runes
 - **Tailwind CSS v4** - Styling
 - **TypeScript** - Type safety
 
 ### Backend
+
 - **Better Auth** - Authentication
 - **Drizzle ORM** - Database ORM
 - **PostgreSQL** - Database
 - **Redis** - Rate limiting
 
 ### Mobile
+
 - **Capacitor 7** - iOS + Android apps
 - **Native plugins** - Share, Haptics, StatusBar
 
 ### Infrastructure (Phase 1)
+
 - **Resend** - Email service
 - **Upstash Redis** - Rate limiting (production)
 - **Sentry** - Error monitoring
@@ -56,11 +60,13 @@ npm run dev
 ## 📋 Prerequisites
 
 ### For Local Development
+
 - **Node.js 18+** and npm
 - **Docker** and Docker Compose
 - **Git**
 
 ### For Mobile Development
+
 - Android Studio (for Android builds)
 - Xcode (for iOS builds, macOS only)
 

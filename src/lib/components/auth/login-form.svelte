@@ -4,7 +4,13 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
-	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
+	import {
+		Card,
+		CardContent,
+		CardDescription,
+		CardHeader,
+		CardTitle
+	} from '$lib/components/ui/card';
 
 	let email = $state('');
 	let password = $state('');
@@ -25,9 +31,9 @@
 			if (result.error) {
 				error = result.error.message || 'Invalid email or password';
 			} else {
-				goto('/splits');
+				await goto('/splits');
 			}
-		} catch (err) {
+		} catch {
 			error = 'An error occurred. Please try again.';
 		} finally {
 			loading = false;

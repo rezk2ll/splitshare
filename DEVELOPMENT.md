@@ -32,6 +32,7 @@ docker-compose ps
 ```
 
 You should see:
+
 - ✅ `splitshare-postgres` - Database (port 5432)
 - ✅ `splitshare-redis` - Rate limiting (port 6379)
 - ✅ `splitshare-mailpit` - Email testing (ports 1025, 8025)
@@ -91,6 +92,7 @@ docker-compose down -v
 ## Available Services
 
 ### Application
+
 - **App**: http://localhost:5173
 - Hot reload enabled
 - TypeScript type checking
@@ -98,29 +100,35 @@ docker-compose down -v
 ### Development Tools
 
 #### Mailpit (Email Testing)
+
 - **Web UI**: http://localhost:8025
 - **SMTP**: localhost:1025
 - View all emails sent by the app
 - No configuration needed
 
 #### Drizzle Studio (Database GUI)
+
 ```bash
 npm run db:studio
 ```
+
 - **URL**: http://localhost:4983
 - Browse and edit database
 - View relationships
 
 #### pgAdmin (Optional)
+
 ```bash
 # Start pgAdmin with other services
 docker-compose --profile tools up -d
 ```
+
 - **URL**: http://localhost:5050
 - **Email**: admin@splitshare.local
 - **Password**: admin
 
 Add server in pgAdmin:
+
 - **Host**: postgres
 - **Port**: 5432
 - **Database**: splitshare
@@ -200,18 +208,21 @@ splitshare/
 ## Features & Tech Stack
 
 ### Frontend
+
 - **SvelteKit 2** - Full-stack framework
 - **Svelte 5** - UI framework with runes
 - **Tailwind CSS v4** - Styling
 - **TypeScript** - Type safety
 
 ### Backend
+
 - **Better Auth** - Authentication
 - **Drizzle ORM** - Database ORM
 - **PostgreSQL** - Database
 - **Redis** - Rate limiting
 
 ### Development
+
 - **Vite** - Build tool
 - **Vitest** - Unit testing
 - **Playwright** - E2E testing
@@ -221,20 +232,22 @@ splitshare/
 ## Videos & Media
 
 ### YouTube Video Embeds
+
 Videos are embedded from YouTube using video IDs or URLs:
 
 ```typescript
 // Store YouTube URL in database
-videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 // or just the ID
-videoUrl: "dQw4w9WgXcQ"
+videoUrl: 'dQw4w9WgXcQ';
 ```
 
 ### Image URLs
+
 For local development, use external image URLs:
 
 ```typescript
-imageUrl: "https://images.unsplash.com/photo-..."
+imageUrl: 'https://images.unsplash.com/photo-...';
 ```
 
 For production, integrate with Supabase storage (see SETUP.md).
@@ -283,6 +296,7 @@ docker exec -it splitshare-redis redis-cli -a redis_dev_password ping
 ### Emails Not Appearing
 
 All emails are caught by Mailpit:
+
 - Check http://localhost:8025
 - Verify Mailpit is running: `docker-compose ps mailpit`
 - Check logs: `docker-compose logs mailpit`
@@ -358,10 +372,12 @@ npm run cap:android
 All environment variables are in `.env`. See `.env.local.example` for local development defaults.
 
 ### Required for Local Development
+
 - `DATABASE_URL` - PostgreSQL connection
 - `BETTER_AUTH_SECRET` - Auth secret key
 
 ### Optional for Local Development
+
 - `SENTRY_DSN` - Leave empty to disable error tracking
 - `RESEND_API_KEY` - Not needed, using Mailpit
 - `UPSTASH_REDIS_REST_URL` - Using local Redis

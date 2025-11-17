@@ -21,6 +21,10 @@ export default ts.config(
 			parserOptions: {
 				parser: ts.parser
 			}
+		},
+		rules: {
+			// Disable for absolute paths in SvelteKit
+			'svelte/no-navigation-without-resolve': 'off'
 		}
 	},
 	{
