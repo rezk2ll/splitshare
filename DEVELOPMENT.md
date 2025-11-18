@@ -411,6 +411,7 @@ echo "SENTRY_PROJECT=" >> .env
 The `.env.local.example` file contains all required variables with sensible defaults for development and placeholder values for optional services like Sentry.
 
 **Important**: The following variables are truly required and must have valid values for the application to work:
+
 - `DATABASE_URL` - PostgreSQL connection string
 - `BETTER_AUTH_SECRET` - Authentication secret key
 - `UPSTASH_REDIS_REST_URL` - Redis connection for rate limiting

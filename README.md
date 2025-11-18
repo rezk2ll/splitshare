@@ -46,6 +46,7 @@ For detailed setup instructions, see [DEVELOPMENT.md](./DEVELOPMENT.md)
 - Git
 
 For mobile development:
+
 - Android Studio (Android)
 - Xcode (iOS, macOS only)
 

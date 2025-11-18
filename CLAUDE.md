@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Svelte Version
+
+**ALWAYS use Svelte 5 with runes mode:**
+
+- Use `$state`, `$derived`, `$effect` instead of reactive declarations
+- Use `{#snippet}` instead of slots with `let:` directives
+- Use `{@render}` to render snippets
+- Avoid legacy Svelte 4 patterns like `let:builder` or slot props
+
 ### Development Server
 
 ```bash
@@ -33,7 +42,6 @@ npm run check   # Type-check with svelte-check
 npm run check:watch # Watch mode for type-checking
 ```
 
-
 ## Available MCP Tools:
 
 ### 1. list-sections
@@ -56,7 +64,6 @@ You MUST use this tool whenever writing Svelte code before sending it to the use
 Generates a Svelte Playground link with the provided code.
 After completing the code, ask the user if they want a playground link. Only call this tool after user confirmation and NEVER if code was written to files in their project.
 
-
 ## Core Workflow: Research → Plan → Implement → Validate
 
 **Start every feature with:** "Let me research the codebase and create a plan before implementing."
@@ -69,6 +76,7 @@ After completing the code, ask the user if they want a playground link. Only cal
 ## Code Organization
 
 **Keep functions small and focused:**
+
 - If you need comments to explain sections, split into functions
 - Group related functionality into clear packages
 - Prefer many small files over few large ones
@@ -76,12 +84,14 @@ After completing the code, ask the user if they want a playground link. Only cal
 ## Architecture Principles
 
 **This is always a feature branch:**
+
 - Delete old code completely - no deprecation needed
 - No versioned names (processV2, handleNew, ClientOld)
 - No migration code unless explicitly requested
 - No "removed code" comments - just delete it
 
 **Prefer explicit over implicit:**
+
 - Clear function names over clever abstractions
 - Obvious data flow over hidden magic
 - Direct dependencies over service locators
@@ -105,6 +115,7 @@ Your redirects prevent over-engineering. When uncertain about implementation, st
 ## Testing Strategy
 
 **Match testing approach to code complexity:**
+
 - Complex business logic: Write tests first (TDD)
 - Simple CRUD operations: Write code first, then tests
 - Hot paths: Add benchmarks after implementation
@@ -123,6 +134,7 @@ Focus on maintainable solutions over clever abstractions.
 ## Git Commit Messages
 
 **Keep commits clean and professional:**
+
 - NEVER add "Generated with Claude Code" links or branding
 - NEVER add "Co-Authored-By: Claude" attribution
 - Write clear, concise commit messages following the project's existing style
@@ -131,7 +143,6 @@ Focus on maintainable solutions over clever abstractions.
 ## design patterns
 
 always use design patterns
-
 
 ## Documentation Style Guidelines
 
@@ -145,12 +156,14 @@ When writing documentation:
 - **No hand-holding** - Developers know that missing required config breaks things
 
 ### Good Documentation Example:
+
 ```
 SUPABASE_URL=your_project_url
 SUPABASE_ANON_KEY=your_anon_key
 ```
 
 ### Bad Documentation Example:
+
 ```
 SUPABASE_URL=your_project_url
 SUPABASE_ANON_KEY=your_anon_key
