@@ -160,4 +160,5 @@ jobs:
         with:
           name: ios-app
           path: ios/App/build/Release-iphoneos/
+          if-no-files-found: warn
           retention-days: 30

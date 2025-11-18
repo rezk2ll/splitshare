@@ -161,6 +161,7 @@ jobs:
         with:
           name: ios-app
           path: ios/App/build/Release-iphoneos/
+          if-no-files-found: warn
 
   create-release:
     name: Create GitHub Release
@@ -180,6 +181,7 @@ jobs:
 
       - name: Download iOS artifacts
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: ios-app
           path: artifacts/ios/
