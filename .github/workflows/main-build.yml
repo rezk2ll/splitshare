@@ -1,22 +1,49 @@
-name: Release
+name: Main Branch Build
 
 on:
   push:
     branches: [main]
-    tags:
-      - 'v*'
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-web:
-    name: Build Web
+  build-and-publish-docker:
+    name: Build and Publish Docker Image
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  build-web:
+    name: Build Web
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
@@ -42,38 +69,9 @@ jobs:
           name: web-build
           path: build/
 
-      - name: Log in to Container Registry
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata
-        if: startsWith(github.ref, 'refs/tags/')
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=tag
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-
-      - name: Build and push Docker image
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
   build-android:
     name: Build Android
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
     needs: build-web
     steps:
       - uses: actions/checkout@v4
@@ -112,11 +110,11 @@ jobs:
         with:
           name: android-apk
           path: android/app/build/outputs/apk/release/*.apk
+          retention-days: 30
 
   build-ios:
     name: Build iOS
     runs-on: macos-latest
-    if: startsWith(github.ref, 'refs/tags/')
     needs: build-web
     steps:
       - uses: actions/checkout@v4
@@ -149,32 +147,4 @@ jobs:
         with:
           name: ios-app
           path: ios/App/build/Release-iphoneos/
-
-  create-release:
-    name: Create GitHub Release
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
-    needs: [build-android, build-ios]
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download Android artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: android-apk
-          path: artifacts/android/
-
-      - name: Download iOS artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: ios-app
-          path: artifacts/ios/
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            artifacts/android/*.apk
-          generate_release_notes: true
+          retention-days: 30
