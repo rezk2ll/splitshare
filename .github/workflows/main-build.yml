@@ -155,10 +155,20 @@ jobs:
         working-directory: ios/App
         run: xcodebuild -workspace App.xcworkspace -scheme App -configuration Release -sdk iphoneos CODE_SIGNING_ALLOWED=NO
 
+      - name: List iOS build output
+        if: always()
+        run: |
+          echo "Listing ios/App/build directory:"
+          ls -la ios/App/build/ || echo "Build directory not found"
+          echo "Searching for .app files:"
+          find ios/App -name "*.app" -type d || echo "No .app files found"
+
       - name: Upload iOS artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ios-app
-          path: ios/App/build/Release-iphoneos/
+          path: |
+            ios/App/build/Release-iphoneos/**/*.app
+            ios/App/build/Release-iphoneos/*.app
           if-no-files-found: warn
           retention-days: 30
