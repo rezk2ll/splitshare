@@ -166,7 +166,7 @@ jobs:
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
+    if: startsWith(github.ref, 'refs/tags/') && needs.build-android.result == 'success'
     needs: [build-android, build-ios]
     permissions:
       contents: write
