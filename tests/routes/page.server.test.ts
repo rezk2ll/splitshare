@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import type { ServerLoadEvent } from '@sveltejs/kit';
+import type { PageServerLoad } from '../../src/routes/$types';
 
 // Mock dependencies
 vi.mock('$lib/server/db', () => ({
@@ -34,9 +34,10 @@ describe('page.server', () => {
 				locals: { user: { id: 'user-123', name: 'Test User' } },
 				params: {},
 				url: new URL('http://localhost'),
-				route: { id: '/' },
+				route: { id: '/' as const },
 				isDataRequest: false,
 				isSubRequest: false,
+				isRemoteRequest: false,
 				fetch: global.fetch,
 				platform: undefined,
 				cookies: {} as never,
@@ -44,8 +45,11 @@ describe('page.server', () => {
 				getClientAddress: () => '127.0.0.1',
 				parent: vi.fn().mockResolvedValue({}),
 				depends: vi.fn(),
-				untrack: <T extends string[]>(...deps: T) => deps
-			} as unknown as ServerLoadEvent;
+				untrack: <T extends string[]>(...deps: T) => deps,
+				tracing: {
+					attributes: new Map()
+				}
+			} as unknown as Parameters<PageServerLoad>[0];
 
 			const result = await load(mockEvent);
 
@@ -62,9 +66,10 @@ describe('page.server', () => {
 				locals: { user: null },
 				params: {},
 				url: new URL('http://localhost?difficulty=beginner'),
-				route: { id: '/' },
+				route: { id: '/' as const },
 				isDataRequest: false,
 				isSubRequest: false,
+				isRemoteRequest: false,
 				fetch: global.fetch,
 				platform: undefined,
 				cookies: {} as never,
@@ -72,12 +77,17 @@ describe('page.server', () => {
 				getClientAddress: () => '127.0.0.1',
 				parent: vi.fn().mockResolvedValue({}),
 				depends: vi.fn(),
-				untrack: <T extends string[]>(...deps: T) => deps
-			} as unknown as ServerLoadEvent;
+				untrack: <T extends string[]>(...deps: T) => deps,
+				tracing: {
+					attributes: new Map()
+				}
+			} as unknown as Parameters<PageServerLoad>[0];
 
 			const result = await load(mockEvent);
 
-			expect(result.appliedFilter).toBe('beginner');
+			expect(result).toBeDefined();
+			expect(result).not.toBeUndefined();
+			expect((result as { appliedFilter: string }).appliedFilter).toBe('beginner');
 		});
 
 		it('should return null user when not authenticated', async () => {
@@ -88,9 +98,10 @@ describe('page.server', () => {
 				locals: { user: null },
 				params: {},
 				url: new URL('http://localhost'),
-				route: { id: '/' },
+				route: { id: '/' as const },
 				isDataRequest: false,
 				isSubRequest: false,
+				isRemoteRequest: false,
 				fetch: global.fetch,
 				platform: undefined,
 				cookies: {} as never,
@@ -98,12 +109,16 @@ describe('page.server', () => {
 				getClientAddress: () => '127.0.0.1',
 				parent: vi.fn().mockResolvedValue({}),
 				depends: vi.fn(),
-				untrack: <T extends string[]>(...deps: T) => deps
-			} as unknown as ServerLoadEvent;
+				untrack: <T extends string[]>(...deps: T) => deps,
+				tracing: {
+					attributes: new Map()
+				}
+			} as unknown as Parameters<PageServerLoad>[0];
 
 			const result = await load(mockEvent);
 
-			expect(result.user).toBeNull();
+			expect(result).toBeDefined();
+			expect((result as { user: null }).user).toBeNull();
 		});
 	});
 });

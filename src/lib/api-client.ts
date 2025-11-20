@@ -1,10 +1,10 @@
 import { API_BASE_URL, IS_MOBILE_APP } from './config';
-import { enhance, applyAction } from '$app/forms';
-import type { SubmitFunction } from '@sveltejs/kit';
+import { applyAction } from '$app/forms';
+import type { SubmitFunction, ActionResult } from '@sveltejs/kit';
 
 type FetchOptions = {
 	method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-	body?: any;
+	body?: unknown;
 	headers?: Record<string, string>;
 };
 
@@ -42,10 +42,10 @@ export async function apiRequest<T>(endpoint: string, options: FetchOptions = {}
  */
 export function enhanceForm(options?: {
 	onSubmit?: () => void;
-	onResult?: (result: any) => void;
+	onResult?: (result: unknown) => void;
 	onError?: (error: string) => void;
-}): Parameters<typeof enhance>[0] {
-	const submitFunction: SubmitFunction = async ({ action, formData, cancel }) => {
+}): SubmitFunction {
+	return async ({ action, formData, cancel }) => {
 		if (options?.onSubmit) {
 			options.onSubmit();
 		}
@@ -55,7 +55,7 @@ export function enhanceForm(options?: {
 			cancel();
 
 			try {
-				const body: Record<string, any> = {};
+				const body: Record<string, unknown> = {};
 				formData.forEach((value, key) => {
 					body[key] = value;
 				});
@@ -78,19 +78,33 @@ export function enhanceForm(options?: {
 					if (options?.onResult) {
 						options.onResult(result);
 					}
-					await applyAction({ type: 'success', data: result });
+					const successResult: ActionResult = {
+						type: 'success',
+						status: response.status,
+						data: result
+					};
+					await applyAction(successResult);
 				} else {
 					if (options?.onError) {
 						options.onError(result.message || 'Action failed');
 					}
-					await applyAction({ type: 'failure', data: result });
+					const failureResult: ActionResult = {
+						type: 'failure',
+						status: response.status,
+						data: result
+					};
+					await applyAction(failureResult);
 				}
 			} catch (error) {
 				const message = error instanceof Error ? error.message : 'Network error';
 				if (options?.onError) {
 					options.onError(message);
 				}
-				await applyAction({ type: 'error', error: new Error(message) });
+				const errorResult: ActionResult = {
+					type: 'error',
+					error: new Error(message)
+				};
+				await applyAction(errorResult);
 			}
 		}
 
@@ -106,6 +120,4 @@ export function enhanceForm(options?: {
 			await applyAction(result);
 		};
 	};
-
-	return submitFunction;
 }

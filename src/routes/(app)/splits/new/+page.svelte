@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-
-	let { data }: { data: PageData } = $props();
+	// Page data will be used when implementing split creation form
 </script>
 
 <div class="container mx-auto px-4 py-8">

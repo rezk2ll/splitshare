@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/cn';
+	import type { Snippet } from 'svelte';
 
 	type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline';
 
@@ -10,7 +11,7 @@
 	}: {
 		variant?: BadgeVariant;
 		class?: string;
-		children: any;
+		children: Snippet;
 	} = $props();
 
 	const variants = {
