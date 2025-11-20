@@ -84,7 +84,13 @@ After completing the code, ask the user if they want a playground link. Only cal
 1. **Research** - Understand existing patterns and architecture
 2. **Plan** - Propose approach and verify with you
 3. **Implement** - Build with tests and error handling
-4. **Validate** - ALWAYS run formatters, linters, and tests after implementation
+4. **Validate** - ALWAYS run these checks before completing a feature:
+   ```bash
+   npm run lint    # Check code formatting and linting
+   npm run check   # Type-check with svelte-check
+   npm run test    # Run all unit tests
+   ```
+   Fix any errors before committing. Never commit broken code.
 
 ## Code Organization
 

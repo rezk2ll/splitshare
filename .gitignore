@@ -44,3 +44,4 @@ drizzle/.kit
 # Test
 coverage/
 .nyc_output
+test-results/

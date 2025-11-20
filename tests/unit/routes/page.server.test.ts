@@ -1,5 +1,4 @@
 import { describe, it, expect, vi } from 'vitest';
-import type { PageServerLoad } from './$types';
 
 // Mock dependencies
 vi.mock('$lib/server/db', () => ({
@@ -49,7 +48,8 @@ describe('page.server', () => {
 				tracing: {
 					attributes: new Map()
 				}
-			} as unknown as Parameters<PageServerLoad>[0];
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} as any;
 
 			const result = await load(mockEvent);
 
@@ -81,7 +81,8 @@ describe('page.server', () => {
 				tracing: {
 					attributes: new Map()
 				}
-			} as unknown as Parameters<PageServerLoad>[0];
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} as any;
 
 			const result = await load(mockEvent);
 
@@ -113,7 +114,8 @@ describe('page.server', () => {
 				tracing: {
 					attributes: new Map()
 				}
-			} as unknown as Parameters<PageServerLoad>[0];
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} as any;
 
 			const result = await load(mockEvent);
 
