@@ -1,4 +1,12 @@
 import { vi } from 'vitest';
+import '@testing-library/jest-dom/vitest';
+import { cleanup } from '@testing-library/svelte';
+import { afterEach } from 'vitest';
+
+// Cleanup after each test
+afterEach(() => {
+	cleanup();
+});
 
 // Mock SvelteKit environment modules
 vi.mock('$env/static/private', () => ({

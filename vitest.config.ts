@@ -4,8 +4,9 @@ import { sveltekit } from '@sveltejs/kit/vite';
 export default defineConfig({
 	plugins: [sveltekit()],
 	test: {
-		environment: 'jsdom',
-		include: ['tests/**/*.{test,spec}.{js,ts}'],
-		setupFiles: ['./vitest.setup.ts']
+		environment: 'happy-dom',
+		include: ['tests/unit/**/*.{test,spec}.{js,ts}'],
+		setupFiles: ['./vitest.setup.ts'],
+		globals: true
 	}
 });

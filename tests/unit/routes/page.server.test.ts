@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import type { PageServerLoad } from '../../src/routes/$types';
+import type { PageServerLoad } from './$types';
 
 // Mock dependencies
 vi.mock('$lib/server/db', () => ({
@@ -27,7 +27,7 @@ vi.mock('$lib/server/rate-limit', () => ({
 describe('page.server', () => {
 	describe('load function', () => {
 		it('should return default splits and user data', async () => {
-			const { load } = await import('../../src/routes/+page.server');
+			const { load } = await import('../../../src/routes/+page.server');
 
 			const mockEvent = {
 				request: new Request('http://localhost'),
@@ -59,7 +59,7 @@ describe('page.server', () => {
 		});
 
 		it('should handle difficulty filter from query params', async () => {
-			const { load } = await import('../../src/routes/+page.server');
+			const { load } = await import('../../../src/routes/+page.server');
 
 			const mockEvent = {
 				request: new Request('http://localhost?difficulty=beginner'),
@@ -91,7 +91,7 @@ describe('page.server', () => {
 		});
 
 		it('should return null user when not authenticated', async () => {
-			const { load } = await import('../../src/routes/+page.server');
+			const { load } = await import('../../../src/routes/+page.server');
 
 			const mockEvent = {
 				request: new Request('http://localhost'),
