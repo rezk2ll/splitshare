@@ -52,7 +52,7 @@
 
 		<div class="mb-3 flex flex-wrap gap-2">
 			{#if split.tags}
-				{#each split.tags as tag}
+				{#each split.tags as tag (tag)}
 					<Badge variant="secondary" class="text-xs">{tag}</Badge>
 				{/each}
 			{/if}

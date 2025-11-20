@@ -1,6 +1,6 @@
 import { db } from '$lib/server/db';
 import { splits, user, likes, comments } from '$lib/server/db/schema';
-import { eq, and, sql, desc } from 'drizzle-orm';
+import { eq, and, sql } from 'drizzle-orm';
 import { rateLimit, feedLimiter, rateLimitError } from '$lib/server/rate-limit';
 import type { PageServerLoad } from './$types';
 
