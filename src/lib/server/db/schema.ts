@@ -76,6 +76,7 @@ export const splits = pgTable('splits', {
 	title: text('title').notNull(),
 	description: text('description'),
 	isPublic: boolean('is_public').notNull().default(false),
+	isDefault: boolean('is_default').notNull().default(false),
 	difficulty: text('difficulty').notNull().default('intermediate'), // beginner, intermediate, advanced
 	duration: integer('duration'), // estimated duration in minutes
 	imageUrl: text('image_url'),
