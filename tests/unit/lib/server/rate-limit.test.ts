@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { rateLimit, rateLimitError } from '../../../src/lib/server/rate-limit';
+import { rateLimit, rateLimitError } from '$lib/server/rate-limit';
 import type { RequestEvent } from '@sveltejs/kit';
 import type { Ratelimit } from '@upstash/ratelimit';
 

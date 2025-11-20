@@ -1,5 +1,4 @@
 import { describe, it, expect, vi } from 'vitest';
-import type { PageServerLoad } from '../../src/routes/$types';
 
 // Mock dependencies
 vi.mock('$lib/server/db', () => ({
@@ -27,7 +26,7 @@ vi.mock('$lib/server/rate-limit', () => ({
 describe('page.server', () => {
 	describe('load function', () => {
 		it('should return default splits and user data', async () => {
-			const { load } = await import('../../src/routes/+page.server');
+			const { load } = await import('../../../src/routes/+page.server');
 
 			const mockEvent = {
 				request: new Request('http://localhost'),
@@ -49,7 +48,8 @@ describe('page.server', () => {
 				tracing: {
 					attributes: new Map()
 				}
-			} as unknown as Parameters<PageServerLoad>[0];
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} as any;
 
 			const result = await load(mockEvent);
 
@@ -59,7 +59,7 @@ describe('page.server', () => {
 		});
 
 		it('should handle difficulty filter from query params', async () => {
-			const { load } = await import('../../src/routes/+page.server');
+			const { load } = await import('../../../src/routes/+page.server');
 
 			const mockEvent = {
 				request: new Request('http://localhost?difficulty=beginner'),
@@ -81,7 +81,8 @@ describe('page.server', () => {
 				tracing: {
 					attributes: new Map()
 				}
-			} as unknown as Parameters<PageServerLoad>[0];
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} as any;
 
 			const result = await load(mockEvent);
 
@@ -91,7 +92,7 @@ describe('page.server', () => {
 		});
 
 		it('should return null user when not authenticated', async () => {
-			const { load } = await import('../../src/routes/+page.server');
+			const { load } = await import('../../../src/routes/+page.server');
 
 			const mockEvent = {
 				request: new Request('http://localhost'),
@@ -113,7 +114,8 @@ describe('page.server', () => {
 				tracing: {
 					attributes: new Map()
 				}
-			} as unknown as Parameters<PageServerLoad>[0];
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			} as any;
 
 			const result = await load(mockEvent);
 

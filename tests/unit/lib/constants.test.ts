@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { DIFFICULTY_LEVELS, ITEMS_PER_PAGE, WORKOUT_TAGS } from '../../src/lib/constants';
+import { DIFFICULTY_LEVELS, ITEMS_PER_PAGE, WORKOUT_TAGS } from '$lib/constants';
 
 describe('constants', () => {
 	describe('DIFFICULTY_LEVELS', () => {
