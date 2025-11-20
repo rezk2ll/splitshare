@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card } from './ui/card';
+	import * as Card from './ui/card';
 	import Badge from './ui/badge.svelte';
 	import type { Split, User } from '$lib/server/db/schema';
 
@@ -24,7 +24,7 @@
 	};
 </script>
 
-<Card class="overflow-hidden transition-shadow hover:shadow-md">
+<Card.Root class="overflow-hidden transition-shadow hover:shadow-md">
 	{#if split.imageUrl}
 		<img src={split.imageUrl} alt={split.title} class="h-48 w-full object-cover" />
 	{:else}
@@ -33,7 +33,7 @@
 		</div>
 	{/if}
 
-	<div class="p-4">
+	<Card.Content class="p-4">
 		<div class="mb-2 flex items-start justify-between">
 			<h3 class="text-lg font-semibold">{split.title}</h3>
 			<Badge variant="outline">
@@ -52,7 +52,7 @@
 
 		<div class="mb-3 flex flex-wrap gap-2">
 			{#if split.tags}
-				{#each split.tags as tag}
+				{#each split.tags as tag (tag)}
 					<Badge variant="secondary" class="text-xs">{tag}</Badge>
 				{/each}
 			{/if}
@@ -89,5 +89,5 @@
 				{/if}
 			</div>
 		</div>
-	</div>
-</Card>
+	</Card.Content>
+</Card.Root>

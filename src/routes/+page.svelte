@@ -1,2 +1,99 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script lang="ts">
+	import type { PageData } from './$types';
+	import SplitCard from '$lib/components/split-card.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+	import { goto } from '$app/navigation';
+	import { DIFFICULTY_LEVELS } from '$lib/constants';
+
+	let { data }: { data: PageData } = $props();
+
+	function filterByDifficulty(difficulty: string | null) {
+		const url = new URL(window.location.href);
+		if (difficulty) {
+			url.searchParams.set('difficulty', difficulty);
+		} else {
+			url.searchParams.delete('difficulty');
+		}
+		goto(url.toString(), { keepFocus: true, noScroll: true });
+	}
+</script>
+
+<div class="container mx-auto px-4 py-8">
+	<!-- Hero Section -->
+	<div class="mb-12 text-center">
+		<h1 class="mb-4 text-4xl font-bold">Welcome to SplitShare</h1>
+		<p class="mb-6 text-lg text-muted-foreground">
+			Discover and share workout splits with the fitness community
+		</p>
+		<div class="flex justify-center gap-4">
+			{#if !data.user}
+				<Button href="/login">Sign In</Button>
+				<Button href="/register" variant="outline">Sign Up</Button>
+			{:else}
+				<Button href="/splits">My Splits</Button>
+			{/if}
+			<Button href="/discover" variant="secondary">Explore Popular Splits</Button>
+		</div>
+	</div>
+
+	<!-- Default Splits Section -->
+	<div class="mb-8">
+		<div class="mb-6 flex items-center justify-between">
+			<div>
+				<h2 class="text-2xl font-bold">Default Workout Splits</h2>
+				<p class="text-sm text-muted-foreground">Curated workout splits to get you started</p>
+			</div>
+
+			<!-- Difficulty Filter -->
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger>
+					{#snippet child({ props })}
+						<Button {...props} variant="outline">
+							{#if data.appliedFilter}
+								{data.appliedFilter.charAt(0).toUpperCase() + data.appliedFilter.slice(1)}
+							{:else}
+								All Difficulties
+							{/if}
+							<span class="ml-2">▼</span>
+						</Button>
+					{/snippet}
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content>
+					<DropdownMenu.Item onclick={() => filterByDifficulty(null)}>
+						All Difficulties
+					</DropdownMenu.Item>
+					{#each DIFFICULTY_LEVELS as difficulty (difficulty)}
+						<DropdownMenu.Item onclick={() => filterByDifficulty(difficulty)}>
+							{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+						</DropdownMenu.Item>
+					{/each}
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
+		</div>
+
+		{#if data.defaultSplits.length > 0}
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{#each data.defaultSplits as item (item.split.id)}
+					<SplitCard
+						split={item.split}
+						author={item.author}
+						likesCount={item.likesCount}
+						commentsCount={item.commentsCount}
+						isLiked={item.isLiked}
+					/>
+				{/each}
+			</div>
+		{:else}
+			<div class="rounded-lg border p-12 text-center">
+				<p class="text-muted-foreground">
+					{#if data.appliedFilter}
+						No default splits found for {data.appliedFilter} difficulty.
+					{:else}
+						No default splits available yet. Check back soon!
+					{/if}
+				</p>
+			</div>
+		{/if}
+	</div>
+</div>

@@ -42,6 +42,19 @@ npm run check   # Type-check with svelte-check
 npm run check:watch # Watch mode for type-checking
 ```
 
+## UI Components
+
+**ALWAYS use shadcn-svelte components:**
+
+- Official documentation: https://www.shadcn-svelte.com/docs/components
+- Component list: https://www.shadcn-svelte.com/docs/components.md
+- **Get markdown documentation**: Add `.md` to any component URL
+  - Example: https://www.shadcn-svelte.com/docs/components/card.md
+  - Example: https://www.shadcn-svelte.com/docs/components/button.md
+- Use ONLY shadcn-svelte components from `$lib/components/ui/`
+- Follow Svelte 5 patterns (no `let:builder` or slot props)
+- Use component snippets when needed with `{#snippet}` and `{@render}`
+
 ## Available MCP Tools:
 
 ### 1. list-sections
