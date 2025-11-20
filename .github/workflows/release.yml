@@ -288,10 +288,24 @@ jobs:
           name: ios-app
           path: artifacts/ios/
 
+      - name: Compress iOS app
+        run: |
+          if [ -d artifacts/ios ] && [ "$(ls -A artifacts/ios)" ]; then
+            cd artifacts/ios
+            for app in *.app; do
+              if [ -d "$app" ]; then
+                zip -r "${app%.app}-ios.zip" "$app"
+                echo "Created ${app%.app}-ios.zip"
+              fi
+            done
+          else
+            echo "No iOS artifacts found, skipping compression"
+          fi
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             artifacts/android/*.apk
-            artifacts/ios/**
+            artifacts/ios/*-ios.zip
           generate_release_notes: true
