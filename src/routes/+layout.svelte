@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import favicon from '$lib/assets/favicon.svg';
 	import '../app.css';
 	import { ModeWatcher } from 'mode-watcher';
 	import ModeToggle from '$lib/components/mode-toggle.svelte';
+	import SeoHead from '$lib/components/seo-head.svelte';
 	import type { LayoutData } from './$types';
 
 	let { data, children }: { data: LayoutData; children: Snippet } = $props();
@@ -11,8 +11,13 @@
 
 <ModeWatcher />
 
+<SeoHead />
+
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" type="image/svg+xml" href="/logo.svg" />
+	<link rel="apple-touch-icon" href="/logo.svg" />
+	<meta name="theme-color" content="#0EA5E9" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 </svelte:head>
 
 <div class="relative min-h-screen h-dvh flex flex-col">

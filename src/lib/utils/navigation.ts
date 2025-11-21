@@ -18,7 +18,10 @@ export function updateUrlParam(
 	} else {
 		url.searchParams.delete(param);
 	}
-	goto(url.toString(), { keepFocus: options.keepFocus ?? true, noScroll: options.noScroll ?? true });
+	goto(url.toString(), {
+		keepFocus: options.keepFocus ?? true,
+		noScroll: options.noScroll ?? true
+	});
 }
 
 /**

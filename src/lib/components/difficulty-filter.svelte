@@ -24,9 +24,7 @@
 		{/snippet}
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Content>
-		<DropdownMenu.Item onclick={() => filterByDifficulty(null)}>
-			All Difficulties
-		</DropdownMenu.Item>
+		<DropdownMenu.Item onclick={() => filterByDifficulty(null)}>All Difficulties</DropdownMenu.Item>
 		{#each DIFFICULTY_LEVELS as difficulty (difficulty)}
 			<DropdownMenu.Item onclick={() => filterByDifficulty(difficulty)}>
 				{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}

@@ -8,17 +8,42 @@ import type {
 	SplitWithDetails
 } from './types';
 
+/**
+ * Service layer for split-related business logic
+ */
 export class SplitService {
+	/**
+	 * Creates split service instance
+	 * @param {SplitRepository} repository - Split repository instance
+	 */
 	constructor(private repository: SplitRepository) {}
 
+	/**
+	 * Retrieves split by ID with full details including days, exercises, and engagement metrics
+	 * @param {string} id - Split ID
+	 * @param {string} currentUserId - Optional current user ID for like status
+	 * @returns {Promise<SplitWithDetails | undefined>} Split with full details or undefined if not found
+	 */
 	async getSplitById(id: string, currentUserId?: string): Promise<SplitWithDetails | undefined> {
 		return this.repository.findByIdWithDetails(id, currentUserId);
 	}
 
+	/**
+	 * Retrieves all splits created by a specific user
+	 * @param {string} userId - User ID
+	 * @returns {Promise<Split[]>} Array of splits owned by the user
+	 */
 	async getUserSplits(userId: string): Promise<Split[]> {
 		return this.repository.findByUserId(userId);
 	}
 
+	/**
+	 * Searches splits with filters and pagination
+	 * @param {SplitFilters} filters - Filter criteria
+	 * @param {PaginationOptions} pagination - Pagination options
+	 * @param {string} currentUserId - Optional current user ID for like status
+	 * @returns {Promise<SplitWithDetails[]>} Array of filtered splits with details
+	 */
 	async searchSplits(
 		filters: SplitFilters,
 		pagination: PaginationOptions,
@@ -27,6 +52,12 @@ export class SplitService {
 		return this.repository.findWithFilters(filters, pagination, currentUserId);
 	}
 
+	/**
+	 * Creates a new split with validation
+	 * @param {CreateSplitInput} input - Split data including days and exercises
+	 * @returns {Promise<Split>} Created split
+	 * @throws {Error} If validation fails
+	 */
 	async createSplit(input: CreateSplitInput): Promise<Split> {
 		// Validate input
 		if (!input.title.trim()) {
@@ -86,6 +117,14 @@ export class SplitService {
 		return this.repository.createWithDays(input);
 	}
 
+	/**
+	 * Updates an existing split
+	 * @param {string} id - Split ID
+	 * @param {string} userId - User ID making the update
+	 * @param {UpdateSplitInput} input - Fields to update
+	 * @returns {Promise<Split>} Updated split
+	 * @throws {Error} If split not found, user not authorized, or validation fails
+	 */
 	async updateSplit(id: string, userId: string, input: UpdateSplitInput): Promise<Split> {
 		const exists = await this.repository.exists(id);
 		if (!exists) {
@@ -109,6 +148,13 @@ export class SplitService {
 		return this.repository.update(id, input);
 	}
 
+	/**
+	 * Deletes a split
+	 * @param {string} id - Split ID
+	 * @param {string} userId - User ID requesting deletion
+	 * @returns {Promise<void>}
+	 * @throws {Error} If split not found or user not authorized
+	 */
 	async deleteSplit(id: string, userId: string): Promise<void> {
 		const exists = await this.repository.exists(id);
 		if (!exists) {
@@ -123,10 +169,21 @@ export class SplitService {
 		await this.repository.delete(id);
 	}
 
+	/**
+	 * Checks if a split exists
+	 * @param {string} id - Split ID
+	 * @returns {Promise<boolean>} True if split exists
+	 */
 	async splitExists(id: string): Promise<boolean> {
 		return this.repository.exists(id);
 	}
 
+	/**
+	 * Checks if user can modify a split
+	 * @param {string} id - Split ID
+	 * @param {string} userId - User ID
+	 * @returns {Promise<boolean>} True if user owns the split
+	 */
 	async canUserModify(id: string, userId: string): Promise<boolean> {
 		return this.repository.isOwnedByUser(id, userId);
 	}
