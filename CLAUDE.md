@@ -154,10 +154,12 @@ Focus on maintainable solutions over clever abstractions.
 
 **Keep commits clean and professional:**
 
-- NEVER add "Generated with Claude Code" links or branding
-- NEVER add "Co-Authored-By: Claude" attribution
+- NEVER add "Generated with Claude Code" links or branding in commit messages
+- NEVER add "Co-Authored-By: Claude" attribution in commit messages
+- NEVER include any Claude-related metadata or signatures
 - Write clear, concise commit messages following the project's existing style
 - Focus on what changed and why, not who or what tool made the changes
+- Commits should appear as if written by a human developer
 
 ## Design Patterns
 

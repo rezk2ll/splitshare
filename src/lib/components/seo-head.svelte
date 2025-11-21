@@ -5,7 +5,7 @@
 	let {
 		title = 'SplitShare - Share & Discover Workout Splits',
 		description = 'Discover and share workout splits with the fitness community. Create custom training programs, track your progress, and connect with other fitness enthusiasts.',
-		image = '/logo.svg',
+		image = '/splitshare.png',
 		url = '',
 		type = 'website',
 		keywords = 'workout splits, fitness, training programs, gym routines, exercise plans'
