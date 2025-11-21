@@ -76,7 +76,6 @@
 		"@capacitor/share": "^7.0.2",
 		"@capacitor/status-bar": "^7.0.3",
 		"@sentry/sveltekit": "^10.25.0",
-		"@supabase/supabase-js": "^2.81.1",
 		"@upstash/ratelimit": "^2.0.7",
 		"@upstash/redis": "^1.35.6",
 		"better-auth": "^1.3.34",
