@@ -28,6 +28,18 @@ export default ts.config(
 		}
 	},
 	{
+		rules: {
+			// Allow unused parameters prefixed with underscore
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{
+					argsIgnorePattern: '^_',
+					varsIgnorePattern: '^_'
+				}
+			]
+		}
+	},
+	{
 		ignores: ['build/', '.svelte-kit/', 'dist/', 'android/', 'ios/']
 	}
 );
