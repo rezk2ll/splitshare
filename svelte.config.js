@@ -10,7 +10,11 @@ const config = {
 
 	kit: {
 		alias: {
-			'@/*': './src/lib/*'
+			'@/*': './src/lib/*',
+			$core: './src/core',
+			$adapters: './src/adapters',
+			$infrastructure: './src/infrastructure',
+			$presentation: './src/presentation'
 		},
 		adapter: isMobileBuild
 			? adapterStatic({
