@@ -2,6 +2,15 @@
 
 A social fitness app that lets users create custom gym splits, share them with the community, and discover popular workout routines.
 
+## Features
+
+- **Custom Workout Splits** - Create and customize your own workout routines
+- **Community Forum** - Discuss fitness topics, share tips, and connect with others
+- **Discover Page** - Browse and filter community-shared workout splits
+- **Rich Text Editor** - WYSIWYG editor for forum posts and workout descriptions
+- **Social Features** - Like, comment, and share workout routines
+- **Mobile Apps** - iOS and Android support via Capacitor
+
 ## Quick Start
 
 ### Automated Setup (Recommended)
@@ -49,6 +58,7 @@ For detailed instructions, see [DOCKER.md](./DOCKER.md) or [DEVELOPMENT.md](./DE
 
 - **SvelteKit 2** - Full-stack framework
 - **Svelte 5** - UI framework with runes
+- **shadcn-svelte** - UI component library
 - **Tailwind CSS v4** - Styling
 - **TypeScript** - Type safety
 - **Better Auth** - Authentication
