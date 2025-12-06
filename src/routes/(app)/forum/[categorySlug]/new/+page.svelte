@@ -21,7 +21,7 @@
 	let isSubmitting = $state(false);
 </script>
 
-<div class="container mx-auto px-4 py-8 max-w-4xl">
+<div class="container mx-auto px-4 py-8 max-w-6xl">
 	<!-- Header -->
 	<div class="mb-8">
 		<Button href="/forum/{data.category.slug}" variant="ghost" class="mb-2">
@@ -35,7 +35,7 @@
 	</div>
 
 	<!-- Form -->
-	<Card>
+	<Card class="border-none shadow-none bg-card/50">
 		<CardHeader>
 			<CardTitle>Topic Details</CardTitle>
 			<CardDescription>Share your thoughts, ask questions, or start a discussion</CardDescription>
@@ -80,8 +80,7 @@
 					<input type="hidden" name="content" value={content} />
 					<RichTextEditor
 						bind:value={content}
-						placeholder="Share your thoughts in detail..."
-						minHeight="300px"
+						minHeight="500px"
 						onUpdate={(html) => {
 							content = html;
 						}}

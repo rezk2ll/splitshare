@@ -6,10 +6,8 @@
 
 	interface Props {
 		value?: string;
-		placeholder?: string;
 		class?: string;
 		minHeight?: string;
-		disabled?: boolean;
 		floating?: boolean;
 		focal?: boolean;
 		onUpdate?: (html: string) => void;
@@ -17,10 +15,8 @@
 
 	let {
 		value = $bindable(''),
-		placeholder = 'Write something...',
 		class: className,
 		minHeight = '120px',
-		disabled = false,
 		floating = true,
 		focal = true,
 		onUpdate
@@ -45,13 +41,13 @@
 	});
 </script>
 
-<div class={cn('rounded-md border', className)}>
+<div class={cn('rounded-lg border-2 border-muted bg-background/50', className)}>
 	<Tipex
 		body={value}
 		{floating}
 		{focal}
 		bind:tipex={editor}
 		style="min-height: {minHeight};"
-		class="prose prose-sm max-w-none p-3 focus:outline-none"
+		class="prose prose-sm max-w-none p-4 focus:outline-none"
 	/>
 </div>

@@ -91,7 +91,7 @@
 	</div>
 
 	<!-- Original Post -->
-	<Card class="mb-8">
+	<Card class="mb-8 border-none shadow-none bg-card/50">
 		<CardContent class="pt-6">
 			<div class="flex items-start gap-4">
 				{#if data.topic.author.image}
@@ -129,7 +129,7 @@
 			<h2 class="text-2xl font-bold">Replies ({data.posts.length})</h2>
 
 			{#each data.posts as post (post.id)}
-				<Card>
+				<Card class="border-none shadow-none bg-card/50">
 					<CardContent class="pt-6">
 						<div class="flex items-start gap-4">
 							{#if post.author.image}
@@ -220,7 +220,7 @@
 
 	<!-- Reply Form -->
 	{#if isAuthenticated && !data.topic.isLocked}
-		<Card>
+		<Card class="border-none shadow-none bg-card/50">
 			<CardHeader>
 				<CardTitle>Post a Reply</CardTitle>
 				<CardDescription>Share your thoughts on this topic</CardDescription>
@@ -248,8 +248,7 @@
 						<input type="hidden" name="content" value={newPostContent} />
 						<RichTextEditor
 							bind:value={newPostContent}
-							placeholder="Write your reply..."
-							minHeight="200px"
+							minHeight="400px"
 							onUpdate={(html) => {
 								newPostContent = html;
 							}}
@@ -262,7 +261,7 @@
 			</CardContent>
 		</Card>
 	{:else if !isAuthenticated}
-		<Card>
+		<Card class="border-none shadow-none bg-card/50">
 			<CardContent class="pt-6">
 				<p class="text-muted-foreground text-center">
 					<a
@@ -275,7 +274,7 @@
 			</CardContent>
 		</Card>
 	{:else if data.topic.isLocked}
-		<Card>
+		<Card class="border-none shadow-none bg-card/50">
 			<CardContent class="pt-6">
 				<div class="flex items-center justify-center gap-2 text-muted-foreground">
 					<Lock class="h-5 w-5" />
