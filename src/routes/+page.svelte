@@ -28,9 +28,11 @@
 
 			<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
 				<!-- Custom Splits -->
-				<div class="flex flex-col items-center text-center p-6">
+				<div
+					class="flex flex-col items-center text-center p-6 rounded-lg transition-all hover:scale-105 hover:bg-accent/50 cursor-default"
+				>
 					<div
-						class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary"
+						class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary transition-all group-hover:scale-110"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +61,10 @@
 				</div>
 
 				<!-- Community -->
-				<div class="flex flex-col items-center text-center p-6">
+				<a
+					href="/forum"
+					class="flex flex-col items-center text-center p-6 rounded-lg transition-all hover:scale-105 hover:bg-accent/50"
+				>
 					<div
 						class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary"
 					>
@@ -84,12 +89,14 @@
 					<p class="text-muted-foreground text-sm">
 						Connect with fellow lifters and share your progress
 					</p>
-				</div>
+				</a>
 
 				<!-- Easy Sharing -->
-				<div class="flex flex-col items-center text-center p-6">
+				<div
+					class="flex flex-col items-center text-center p-6 rounded-lg transition-all hover:scale-105 hover:bg-accent/50 cursor-default"
+				>
 					<div
-						class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary"
+						class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary transition-all group-hover:scale-110"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -114,9 +121,11 @@
 				</div>
 
 				<!-- Trending Routines -->
-				<div class="flex flex-col items-center text-center p-6">
+				<div
+					class="flex flex-col items-center text-center p-6 rounded-lg transition-all hover:scale-105 hover:bg-accent/50 cursor-default"
+				>
 					<div
-						class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary"
+						class="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary transition-all group-hover:scale-110"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

@@ -2,11 +2,18 @@
 	import type { PageData } from './$types';
 	import SplitCard from '$lib/components/split-card.svelte';
 	import { Button } from '$lib/components/ui/button';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { goto } from '$app/navigation';
 	import { DIFFICULTY_LEVELS } from '$lib/constants';
+	import { TrendingUp, Clock } from 'lucide-svelte';
 
 	let { data }: { data: PageData } = $props();
+
+	let sortBy = $state<'popular' | 'recent'>('popular');
+
+	function setSortBy(sort: 'popular' | 'recent') {
+		sortBy = sort;
+		// TODO: Implement actual sorting in the backend
+	}
 
 	function filterByDifficulty(difficulty: string | null) {
 		const url = new URL(window.location.href);
@@ -16,7 +23,7 @@
 		} else {
 			url.searchParams.delete('difficulty');
 		}
-		goto(url.toString(), { keepFocus: true, noScroll: true });
+		goto(url.toString(), { invalidateAll: true });
 	}
 
 	function loadMore() {
@@ -37,78 +44,49 @@
 	</div>
 
 	<!-- Filter Section -->
-	<div class="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-		<div class="flex items-center gap-4">
-			<div class="flex items-center gap-2">
-				<span class="text-sm font-medium">Sort by:</span>
-				<DropdownMenu.Root>
-					<DropdownMenu.Trigger>
-						{#snippet child({ props })}
-							<Button {...props} variant="outline" size="sm">
-								Popular
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="16"
-									height="16"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									class="ml-2"
-								>
-									<path d="m6 9 6 6 6-6" />
-								</svg>
-							</Button>
-						{/snippet}
-					</DropdownMenu.Trigger>
-					<DropdownMenu.Content>
-						<DropdownMenu.Item>Popular</DropdownMenu.Item>
-						<DropdownMenu.Item>Recent</DropdownMenu.Item>
-					</DropdownMenu.Content>
-				</DropdownMenu.Root>
-			</div>
+	<div class="mb-6 flex flex-wrap items-center gap-3">
+		<span class="text-sm font-medium text-muted-foreground">Sort by:</span>
+		<div class="flex gap-2">
+			<Button
+				variant={sortBy === 'popular' ? 'default' : 'ghost'}
+				size="sm"
+				onclick={() => setSortBy('popular')}
+				class="gap-2"
+			>
+				<TrendingUp class="h-4 w-4" />
+				Popular
+			</Button>
+			<Button
+				variant={sortBy === 'recent' ? 'default' : 'ghost'}
+				size="sm"
+				onclick={() => setSortBy('recent')}
+				class="gap-2"
+			>
+				<Clock class="h-4 w-4" />
+				Recent
+			</Button>
 		</div>
 
-		<!-- Difficulty Filter -->
-		<div class="flex items-center gap-2">
-			<span class="text-sm font-medium">Difficulty:</span>
-			<DropdownMenu.Root>
-				<DropdownMenu.Trigger>
-					{#snippet child({ props })}
-						<Button {...props} variant="outline" size="sm">
-							{#if data.appliedFilter}
-								{data.appliedFilter.charAt(0).toUpperCase() + data.appliedFilter.slice(1)}
-							{:else}
-								All
-							{/if}
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="ml-2"
-							>
-								<path d="m6 9 6 6 6-6" />
-							</svg>
-						</Button>
-					{/snippet}
-				</DropdownMenu.Trigger>
-				<DropdownMenu.Content>
-					<DropdownMenu.Item onclick={() => filterByDifficulty(null)}>All</DropdownMenu.Item>
-					{#each DIFFICULTY_LEVELS as difficulty (difficulty)}
-						<DropdownMenu.Item onclick={() => filterByDifficulty(difficulty)}>
-							{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
-						</DropdownMenu.Item>
-					{/each}
-				</DropdownMenu.Content>
-			</DropdownMenu.Root>
+		<div class="h-6 w-px bg-border"></div>
+
+		<span class="text-sm font-medium text-muted-foreground">Difficulty:</span>
+		<div class="flex gap-2 flex-wrap">
+			<Button
+				variant={!data.appliedFilter ? 'default' : 'ghost'}
+				size="sm"
+				onclick={() => filterByDifficulty(null)}
+			>
+				All
+			</Button>
+			{#each DIFFICULTY_LEVELS as difficulty (difficulty)}
+				<Button
+					variant={data.appliedFilter === difficulty ? 'default' : 'ghost'}
+					size="sm"
+					onclick={() => filterByDifficulty(difficulty)}
+				>
+					{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+				</Button>
+			{/each}
 		</div>
 	</div>
 
