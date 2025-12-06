@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
-import { forumCategories, forumTopics, forumPosts } from '../src/lib/server/db/schema';
+import { forumCategories } from '../src/lib/server/db/schema';
 import { config } from 'dotenv';
 import { sql } from 'drizzle-orm';
 

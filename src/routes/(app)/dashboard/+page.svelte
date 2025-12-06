@@ -32,7 +32,7 @@
 
 	<!-- Stats Cards -->
 	<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-		<Card>
+		<Card class="border-none shadow-none bg-card/50">
 			<CardHeader class="flex flex-row items-center justify-between pb-2">
 				<CardTitle class="text-sm font-medium">Total Workouts</CardTitle>
 				<Activity class="h-4 w-4 text-muted-foreground" />
@@ -42,7 +42,7 @@
 			</CardContent>
 		</Card>
 
-		<Card>
+		<Card class="border-none shadow-none bg-card/50">
 			<CardHeader class="flex flex-row items-center justify-between pb-2">
 				<CardTitle class="text-sm font-medium">Current Streak</CardTitle>
 				<TrendingUp class="h-4 w-4 text-muted-foreground" />
@@ -52,7 +52,7 @@
 			</CardContent>
 		</Card>
 
-		<Card>
+		<Card class="border-none shadow-none bg-card/50">
 			<CardHeader class="flex flex-row items-center justify-between pb-2">
 				<CardTitle class="text-sm font-medium">Total Time</CardTitle>
 				<Calendar class="h-4 w-4 text-muted-foreground" />
@@ -62,7 +62,7 @@
 			</CardContent>
 		</Card>
 
-		<Card>
+		<Card class="border-none shadow-none bg-card/50">
 			<CardHeader class="flex flex-row items-center justify-between pb-2">
 				<CardTitle class="text-sm font-medium">Avg Duration</CardTitle>
 				<Activity class="h-4 w-4 text-muted-foreground" />
@@ -75,7 +75,7 @@
 
 	<div class="grid gap-6 md:grid-cols-2">
 		<!-- Recent Workouts -->
-		<Card>
+		<Card class="border-none shadow-none bg-card/50">
 			<CardHeader>
 				<CardTitle>Recent Workouts</CardTitle>
 			</CardHeader>
@@ -112,7 +112,7 @@
 		</Card>
 
 		<!-- Personal Records -->
-		<Card>
+		<Card class="border-none shadow-none bg-card/50">
 			<CardHeader class="flex flex-row items-center justify-between">
 				<CardTitle>Personal Records</CardTitle>
 				<Award class="h-5 w-5 text-yellow-500" />

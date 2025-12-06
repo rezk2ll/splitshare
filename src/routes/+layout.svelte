@@ -33,6 +33,7 @@
 					<nav class="flex items-center gap-4">
 						<a href="/splits" class="text-sm hover:text-primary">My Splits</a>
 						<a href="/discover" class="text-sm hover:text-primary">Discover</a>
+						<a href="/forum" class="text-sm hover:text-primary">Forum</a>
 					</nav>
 				{/if}
 			</div>

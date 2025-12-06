@@ -35,7 +35,9 @@
 	<div class="space-y-4">
 		{#each data.categories as category (category.id)}
 			<a href="/forum/{category.slug}" class="block">
-				<Card class="hover:bg-muted/50 transition-colors cursor-pointer">
+				<Card
+					class="hover:bg-muted/50 transition-colors cursor-pointer border-none shadow-none bg-card/50"
+				>
 					<CardContent class="pt-6">
 						{@const Icon = getIcon(category.icon)}
 						<div class="flex items-center gap-4">

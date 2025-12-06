@@ -46,7 +46,7 @@
 
 	<!-- Topics List -->
 	{#if data.topics.length === 0}
-		<Card>
+		<Card class="border-none shadow-none bg-card/50">
 			<CardContent class="pt-6">
 				<div class="text-center py-12">
 					<MessageSquare class="h-12 w-12 text-muted-foreground mx-auto mb-4" />
@@ -60,7 +60,7 @@
 		<div class="space-y-2">
 			{#each data.topics as topic (topic.id)}
 				<a href="/forum/topic/{topic.id}" class="block">
-					<Card class="hover:bg-muted/50 transition-colors">
+					<Card class="hover:bg-muted/50 transition-colors border-none shadow-none bg-card/50">
 						<CardContent class="pt-6">
 							<div class="flex items-start gap-4">
 								<!-- Author Avatar -->

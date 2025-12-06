@@ -42,7 +42,9 @@
 			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 				{#each splits as split (split.id)}
 					<a href="/splits/{split.id}" class="block transition-transform hover:scale-105">
-						<Card class="h-full hover:shadow-lg transition-shadow cursor-pointer">
+						<Card
+							class="h-full hover:shadow-lg transition-shadow cursor-pointer border-none shadow-none bg-card/50"
+						>
 							{#if split.imageUrl}
 								<div class="aspect-video overflow-hidden rounded-t-lg">
 									<img src={split.imageUrl} alt={split.title} class="w-full h-full object-cover" />

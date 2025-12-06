@@ -26,5 +26,8 @@
 				Create Your Split
 			</Button>
 		{/if}
+		<Button href="/forum" variant="secondary" size="lg" class="w-full sm:w-auto">
+			Community Forum
+		</Button>
 	</div>
 </div>

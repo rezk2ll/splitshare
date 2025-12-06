@@ -5,7 +5,6 @@ import { ForumService } from '$lib/services/forum/forum.service';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
-
 	const repository = new ForumRepository(db);
 	const service = new ForumService(repository);
 
